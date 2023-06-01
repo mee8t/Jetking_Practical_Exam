@@ -1,0 +1,7 @@
+//SPDX-License-Identifier:MIT
+pragma solidity^0.8.7;
+contract Solidity {
+  function heybuddy () public pure returns (string)
+     return "HEY BUDDY I AM PREET"  // solidity easy to understand 
+  // solidity is use to write smart contract on EVM  
+}

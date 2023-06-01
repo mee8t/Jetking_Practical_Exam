@@ -1,0 +1,7 @@
+//SPDX-License-Identifier:MIT
+pragma solidity^0.8.7;
+contract Localvariable {
+  function locals (uint256_number) externals returns (uint256){
+    return _uint;  // local variable declared in the function 
+}
+}
