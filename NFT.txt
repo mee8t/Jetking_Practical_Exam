@@ -1,0 +1,56 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract WildlifeCombat is ERC721, ERC721Burnable, Ownable {
+    constructor() ERC721("WildlifeCombat ", "WLC") {
+         Owner= payable (msg.sender);
+    }
+   address payable public Owner;
+   struct listing {
+       address nftaddress;
+       uint tokenid ;
+       uint price;
+       address seller;
+       bool sold;
+       
+   }
+   mapping (uint=>uint)tokenidTolistinglist;
+   
+    function safeMint(address to, uint256 tokenId) public onlyOwner {
+        _safeMint(to, tokenId);
+    }
+     function listnft(address _nftaddress,uint _tokenId,uint _price) external {
+         require (_price > 0,"insufficient fund");
+         require(msg.sender!= address(0)," address");
+         require(IERC721(_nftaddress).ownerof(_tokenId) == msg.sender,"only owner can list");
+        listing.push(listing(_nftaddress,_tokenId,_price,msg.sender,false));
+        tokenidTolistinglist[_tokenId] = listing.length-1;
+     }
+      function buynft (uint _listing) external payable {
+        require(_listing< _listing.length);
+        listing storage  listing= [_listing];
+
+        require(listing.seller!=msg.sender);
+        require(msg.value >=listing.price);
+        require(!listing.sold);
+        require( msg.sender!=address);
+
+        listing.sold= true;
+        payable(listing.seller).transfer (listing.price) ;
+        IERC721(listing.nftaddress).transferfrom(address(this),msg.sender);
+
+      }
+       function getlist(uint _listing) external view returns (listing memory){
+        return listing[_listing];
+       }
+        
+        function withdraw() external onlyOwner{
+            uint bal= address(this).balance;
+             Owner.transfer(bal);
+        }
+      
+}
