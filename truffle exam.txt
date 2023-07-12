@@ -1,0 +1,36 @@
+
+
+1) Demonstrate the process of migrating the smart contract with
+Truffle Develop.
+ ans - step 1 open terminal of gitbash 
+            2 check npm-v
+            3  check node -v 
+            4  check truffle package insert command truffle version
+           5  create new dicrectory for truffle project 
+           6 insert command mkdir metacoin 
+           7 to enter in the directory insert a command cd metacoin
+            to check present directory insert command pwd
+           8 now download the metacoin box insert command truffle unbox metacoin
+           9  truffle have default built in persnoal blockchain thats is truffle trffle (develop)>
+              that can use for testing 
+            10 insert command truffle develop
+             11 in truffle develop in command truffle migrate for intreacting blockchain 
+   
+
+
+ 2) Explain the steps involved in interacting with the Smart contract
+using Truffle develop.
+ans- for interacting with smart contract we will use console 
+      1insert a command truffle console
+       this will leads us into truffle(development)>
+        2  then insert a command let instance = await MetaCoin.deployed()
+        3 insert command lest accounts = await web3.eth.accounts()
+         3 insert commant for check balance of metacoin of the accounts that deploed the contract let balance =await instance.getBalance(accounts[0])
+       5 insert command balance.toNumber()
+        insert command see ether in accounts let ether =await instance .getBalanceInEth(accounts[0])
+         to convert into number insert command ether.toNumber()
+         instance .sendCoin(accounts[1],100)
+         6 check the balance of the accounts let recive =await instance.Balance(accounts[1])
+          recive.toNumber()
+         7 to check the balance of the account send the meta coin insert command let balanceof = await instance.getBalance(accounts[0])
+            balanceof.toNumber ()
