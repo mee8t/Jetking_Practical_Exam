@@ -1,0 +1,39 @@
+
+
+1) Write the differences between Web3.js and Ether.js.
+
+ans- web.js and ether.js both  ethererum java script library
+  web3.js develop and maintain by ethereum foundation so there is wider support for web3.js  as more developers are bihind it web3.js is a java script library and allows to you intreact with the ethereum blockchain it provides serveral function that allows to create , send and intract tract and transaction and intract with smart contract web.3js is opencsource it has been adopted  many companies
+including microsoft and ibm 
+ether. js is develpoed and maintain  rick moorea a canadian developer one majior diffrence between
+web3.js and ether.js is how they handel key management's and intreaction with the ethereum blockchain.
+ web3.js and ether.js is popular java script library for bulding decentralizaTION applaction web3.js is baseed on ethereum network and allow for smart contract developement while ether.js is baseed on bitcoin network and allow for digital aset and smart contract creation ether.js allow for writing  ethereum smart contract directly in java script while web.js has more user friendliness ether.js has daily download and test while web3.js has more update and better web perfomance.
+
+
+2) Demonstrate how to read data from the Smart Contract with the
+help of Web3.js.
+
+
+ans- create file and open with git bash
+     in terminal insert command 
+npm -v
+node -v
+npm install web3
+
+to entewr into node console insert command 
+node
+ make a variable insert command 
+  const Web3 = require('web3');
+   make a variable link rpcURL insert command 
+  const rpcURL = "https://mainnet.infura.io/v3/20f850b17cfb4231abbb3c5a362a255b";
+    make a variable assign rpcURL in Web3 variable insert command 
+    const web3 = new Web3(new Web3.providers.HttpProvider(rpcURL));
+    make a variable and assign abi code of smart contract instent command 
+  const abi =[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"sender","type":"address"},{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"value","type":"uint256"}],"name":"burn","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"account","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"owner","type":"address"},{"name":"spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"name","type":"string"},{"name":"symbol","type":"string"},{"name":"decimals","type":"uint8"},{"name":"totalSupply","type":"uint256"},{"name":"feeReceiver","type":"address"},{"name":"tokenOwnerAddress","type":"address"}],"payable":true,"stateMutability":"payable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"}];
+ make a variable and assign smart contract address insert command
+const address = "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce";
+
+const contract= web3.contract(abi,address);
+to view the function in the smart contract  insert command 
+console.log(contract.methods);
+contract.method.totalsupply().call().then (console.log);
