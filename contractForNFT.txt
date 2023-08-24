@@ -1,0 +1,96 @@
+1) Write a Solidity Smart Contract for a Complete ERC721
+Smart Contract where you can perform Minting the NFT
+by paying in Ethers, Limiting the supply of NFT’s,
+Allowing list functionality, Modifying the Minting
+functionality, Withdrawing functionality, and, clean up
+code by using internalMint() function.
+
+ans- : go openzeppelin wizard
+     :  Select the standard for NFT erc-721
+     : Give name and symbol add features
+     : Open with remix IDE
+     : Make sure the compilar version is same as in smart contract
+
+     Here list of the function we are adding in smart contract
+      baseURI,Allow,allowlist,publicmint,internalmint,editmint,setallowlist,withdraw,beforetokentransfer
+      ,supportinterface
+    
+     
+      here the smart contract of NFT
+
+       // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+import "@openzeppelin/contracts@4.9.3/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts@4.9.3/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts@4.9.3/access/Ownable.sol";
+import "@openzeppelin/contracts@4.9.3/utils/Counters.sol";
+
+contract M146 is ERC721, ERC721Enumerable, Ownable {
+    using Counters for Counters.Counter;
+
+     uint MAX_SUPPLY=1;
+     bool private allowListOpen;
+     bool private publicOpen;
+     mapping (address=>bool ) public allowList;
+    Counters.Counter private _tokenIdCounter;
+
+      
+    constructor() ERC721("M146", "GUNNFT") {}
+    function baseURI () internal  pure  returns (string memory) {
+         return "https://coral-empirical-gorilla-667.mypinata.cloud/ipfs/QmdYhJcax83xtNtLDxRCK3RNTYJS9GZbnZWWN1c1qTqump";
+    }
+      function allowListMint() public payable {
+          require(allowListOpen, "Mint is not Open YET");
+          require(allowList[msg.sender],"YOu ARE NOT IN ALLOWLIST");
+          require (msg.value==0.001 ether,"INSUFFICIENT FUND");
+          internalMint();
+      }
+      function internalMint () internal {
+          require(totalSupply()< MAX_SUPPLY,"all soldout");
+          uint256 tokenId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
+        _safeMint(msg.sender, tokenId);
+    }
+       function publicMint () internal {
+           require(publicOpen,"mint is not open");
+           require(msg.value== 0.01 ether, "INSUFFICIENT FUND");
+
+       }
+
+       function editMintWindos (bool _allowListOpen,bool _publicMintOpen) external onlyOwner {
+           publicOpen=_publicMintOpen;
+           allowListOpen=_allowListOpen;
+       }
+       function setAllowList (address[] memory addresses) external onlyOwner {
+           for (uint i =0; i<addresses.length;i ++){
+               allowList[addresses[i]]=true; 
+           } }
+             function Withdraw () external onlyOwner {
+               uint bal=address(this).balance;
+               payable (msg.sender).transfer(bal);
+               }
+         
+         
+    
+       
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
+        internal
+        override(ERC721, ERC721Enumerable)
+    {
+        super._beforeTokenTransfer(from, to, tokenId, batchSize);
+        
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721Enumerable)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+}
+
+         
+          
