@@ -1,0 +1,70 @@
+1) Mention the differences between Hardhat and Truffle.
+Ans- Difference  between  are
+      Haedhat                               Trruffle          
+1.Faster migration process                  1.Poor migration process
+2.less gas fees while miration.             2.More gas fees while miration.
+3. easy debugging.                          3. not good as Hardhat
+
+
+
+2) Write a Smart Contract and demonstrate the steps
+involved in the process of compilation using Hardhat
+Development Environment.
+
+Ans- requirements terminal (git bash)
+
+   -In terminal check requirements 
+    command*nmp -v*
+    commmand *node -v*
+    TO make a folder run command *mkdir projectname*
+    TO change directory  *cd projectname*
+    To install hardhat run command*npm install --save-dev hardhat*
+    TO create a hardhat project run command *npx hardhat*
+   select *Create a JavaScript project* hit enter 
+    You need to install these dependencies to run the sample project:
+    run command *npm install --save-dev "hardhat@^2.17.3" "@nomicfoundation/hardhat-toolbox@^3.0.0" *
+     
+    TO open with code editor run command *code ..*
+     
+   In code editor select contract folder and create file in it. give name to file with .sol extension
+    now writing our smart contract in Token.sol file
+        
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.7;
+  contract Token {
+    string public name = "CATO";
+    string public symbol = "CAT";
+    uint public TotalSupply = 1000;
+     address public owner;
+
+ mapping(address=>uint) balances;
+ event transfer(address indexed from ,address indexed to,uint256 value);
+constructor (){
+    balances[msg.sender]= TotalSupply;
+    owner= msg.sender;
+}
+ function Transfer (address to,uint256 amount) external{
+     require (balances[msg.sender]>= amount);
+     balances[msg.sender] -= amount;
+     balances[to]+=amount;
+
+     emit transfer (msg.sender,to,amount);
+   
+ }
+   function Balanceof (address account) external view returns (uint256){
+    return balances[account];
+   }
+  }
+  
+
+ Save all the changes  in code editor's
+ go to the terminal 
+ and run command to compile contract *npx hardhat compile*
+  Compiled 2 Solidity files successfully
+
+  
+
+     
+    
+    
+  
